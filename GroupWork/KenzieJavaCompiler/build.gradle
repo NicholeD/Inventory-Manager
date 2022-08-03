@@ -1,0 +1,45 @@
+plugins {
+    id 'ata-curriculum.snippets-conventions'
+}
+
+repositories {
+  maven {
+    url = uri("https://maven.pkg.github.com/KenzieAcademy-SoftwareEngineering/kenzie-java-test-infrastructure")
+    credentials {
+      username = "kenzie-gradle"
+      password = "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"
+    }
+  }
+}
+
+dependencies {
+  implementation 'com.kenzie:kenzieresources:1.0.1'
+}
+
+checkstyle {
+    def suppressionFile = rootProject.file('Utilities/ATACheckstyle/configuration/checkstyle/unit1/suppressions.xml')
+    configProperties.put('checkstyle.suppression.filter', suppressionFile)
+}
+
+def wflowToTestsMap = [
+        'balanced-curlybracevalidator-test': [
+            'com.kenzie.groupwork.kenziejavacompiler.BalancedCurlyBraceValidatorTest'
+        ],
+         'balanced-curlybracevalidator-extension-test': [
+            'com.kenzie.groupwork.kenziejavacompiler.BalancedCurlyBraceValidatorExtensionTest'
+        ],
+        'kenzie-javafile-compiler-test': [
+            'com.kenzie.groupwork.kenziejavacompiler.KenzieJavaFileCompilerIntegrationTest'
+        ]
+]
+
+wflowToTestsMap.forEach { wflowName, testList ->
+    tasks.register(wflowName) {
+        dependsOn wflowtest
+        test.doFirst {
+            filter {
+                testList.each { includeTestsMatching it }
+            }
+        }
+    }
+}
