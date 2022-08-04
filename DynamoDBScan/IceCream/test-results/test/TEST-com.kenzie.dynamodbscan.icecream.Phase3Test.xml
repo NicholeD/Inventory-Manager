@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kenzie.dynamodbscan.icecream.Phase3Test" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-08-04T22:07:36" hostname="Nicholes-MacBook-Pro.local" time="1.87">
+  <properties/>
+  <testcase name="order_twoSundaes_receiptContainsSundaes()" classname="com.kenzie.dynamodbscan.icecream.Phase3Test" time="0.915"/>
+  <testcase name="order_twoSundaes_itemContainsCorrectJson()" classname="com.kenzie.dynamodbscan.icecream.Phase3Test" time="0.456"/>
+  <testcase name="order_oneSundae_receiptContainsSundae()" classname="com.kenzie.dynamodbscan.icecream.Phase3Test" time="0.082"/>
+  <testcase name="order_oneSundae_itemContainsCorrectJson()" classname="com.kenzie.dynamodbscan.icecream.Phase3Test" time="0.407"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
