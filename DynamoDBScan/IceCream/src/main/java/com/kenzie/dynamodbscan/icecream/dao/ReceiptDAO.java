@@ -12,7 +12,9 @@ import com.kenzie.dynamodbscan.icecream.model.Sundae;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 
 /**
@@ -57,7 +59,23 @@ public class ReceiptDAO {
      * @return the total values of sundae sales for the requested time period
      */
     public BigDecimal getSalesBetweenDates(ZonedDateTime fromDate, ZonedDateTime toDate) {
-        return new BigDecimal(-1);
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+        valueMap.put(":startDate", new AttributeValue().withS(converter.convert(fromDate)));
+        valueMap.put(":endDate", new AttributeValue().withS(converter.convert(toDate)));
+
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("salesTotal between :startDate and :endDate")
+                .withExpressionAttributeValues(valueMap);
+        
+        PaginatedScanList<Receipt> sales = mapper.scan(Receipt.class, scanExpression);
+
+        int total = 0;
+        
+        for (Receipt receipt : sales) {
+            BigDecimal receiptTotal = receipt.getSalesTotal();
+            total+=receiptTotal.intValue();
+        }
+        return new BigDecimal(total);
     }
 
     /**

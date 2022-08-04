@@ -32,7 +32,7 @@ public class Phase0Test {
     private IceCreamParlorService service;
 
     @BeforeEach
-    private void setup() {
+    void setup() {
         service = DAGGER.provideIceCreamParlorService();
     }
 

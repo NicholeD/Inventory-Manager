@@ -31,7 +31,7 @@ public class IceCreamParlorAdminService {
      * @return the total amount of sales during the time period
      */
     public BigDecimal getSalesForTimePeriod(final ZonedDateTime fromDate, final ZonedDateTime toDate) {
-        return new BigDecimal(-1);
+        return receiptDao.getSalesBetweenDates(fromDate, toDate);
     }
 
     /**
