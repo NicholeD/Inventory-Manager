@@ -87,6 +87,17 @@ public class ReceiptDAO {
      * @return a list of Receipts
      */
     public List<Receipt> getReceiptsPaginated(int limit, Receipt exclusiveStartKey) {
-        return Collections.emptyList();
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withLimit(limit);
+
+        if (exclusiveStartKey != null) {
+            Map<String, AttributeValue> startKeyMap = new HashMap<>();
+            startKeyMap.put("customerId", new AttributeValue().withS(exclusiveStartKey.getCustomerId()));
+            startKeyMap.put("purchaseDate", new AttributeValue().withS(converter.convert(exclusiveStartKey.getPurchaseDate())));
+            scanExpression.setExclusiveStartKey(startKeyMap);
+        }
+
+        ScanResultPage<Receipt> receiptPage = mapper.scanPage(Receipt.class, scanExpression);
+        return receiptPage.getResults();
     }
 }

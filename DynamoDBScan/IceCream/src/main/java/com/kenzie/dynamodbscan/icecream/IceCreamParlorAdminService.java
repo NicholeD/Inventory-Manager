@@ -45,7 +45,7 @@ public class IceCreamParlorAdminService {
      * @return a list of Receipts of size limit or less than limit if the end of the receipts has been reached
      */
     public List<Receipt> getCustomerReceipts(final int limit, final Receipt exclusiveStartReceipt) {
-        return Collections.emptyList();
+        return receiptDao.getReceiptsPaginated(limit, exclusiveStartReceipt);
     }
 
 }
