@@ -2,7 +2,12 @@ package com.kenzie.queues.playlist;
 
 import com.kenzie.queues.playlist.models.Song;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Playlist {
+
+    Queue<Song> playlistQueue = new LinkedList<>();
 
     /**
      * Constructor.
@@ -17,8 +22,11 @@ public class Playlist {
      * @return The next Song in the playlist, or null if the playlist is empty.
      */
     public Song getNextSong() {
-        // TODO: implement this
-        return new Song("", "");
+        if (!playlistQueue.isEmpty()) {
+            return playlistQueue.remove();
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -27,6 +35,7 @@ public class Playlist {
      */
     public void addSong(Song song) {
         // TODO: implement this
+        playlistQueue.add(song);
     }
 
 }
