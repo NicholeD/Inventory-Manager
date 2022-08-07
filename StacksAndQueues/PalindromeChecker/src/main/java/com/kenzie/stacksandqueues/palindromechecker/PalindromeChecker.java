@@ -1,6 +1,7 @@
 package com.kenzie.stacksandqueues.palindromechecker;
 
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * Contains logic to validate whether a provided input is a palindrome.
@@ -31,6 +32,18 @@ public class PalindromeChecker {
      * @return true if the numbers in the queue represent a palindrome, false otherwise
      */
     public static boolean isPalindrome(Queue<Integer> q) {
+        Stack<Integer> s = new Stack<>();
+
+        //creating q in reverse order in a stack
+        for (Integer i : q) {
+            s.push(i);
+        }
+
+        for (Integer i : q) {
+            if (s.pop() != i) {
+                return false;
+            }
+        }
         return true;
     }
 }
